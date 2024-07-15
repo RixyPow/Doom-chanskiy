@@ -17,6 +17,11 @@ public class ReactiveTarget : MonoBehaviour
     }
     private IEnumerator DieCoroutine(float waitSecond){ //смерть, потом добавлю анимацию
         this.transform.Rotate(45, 0 , 0);
+        Renderer renderer = this.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = Color.black;
+        }
         yield return new WaitForSeconds(waitSecond);
         Destroy(this.transform.gameObject);
     }
