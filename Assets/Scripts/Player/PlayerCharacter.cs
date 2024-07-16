@@ -8,7 +8,7 @@ public class PlayerCharacter : MonoBehaviour
      [SerializeField]private int _health = 5;
 
     private void Start(){
-        _health = 5;
+        _health = 100;
 
     }
     public void Hurt(int damage){
