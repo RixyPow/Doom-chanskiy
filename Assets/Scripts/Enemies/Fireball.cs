@@ -9,7 +9,6 @@ public class Fireball : MonoBehaviour
 
     private void Update(){
         transform.Translate(0,0,speed*Time.deltaTime);
-        // Вызов метода для автоудаления объекта
         StartCoroutine(AutoDestroy());
     }
 
@@ -22,11 +21,9 @@ public class Fireball : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
-
-    // Метод для автоудаления объекта через заданное время
     private IEnumerator AutoDestroy()
     {
-        yield return new WaitForSeconds(2.0f); // Задержка перед удалением объекта (например, 2 секунды)
+        yield return new WaitForSeconds(2.0f); 
         Destroy(this.gameObject);
     }
         

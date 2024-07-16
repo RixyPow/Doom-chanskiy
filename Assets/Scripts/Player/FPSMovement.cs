@@ -11,7 +11,7 @@ private CharacterController _characterController;
 private Vector3 _velocity;
 private Jetpack _jetpack; 
 
-private void Start()
+private void Start() 
 {
     _characterController = GetComponent<CharacterController>();
     _jetpack = GetComponent<Jetpack>();
@@ -19,7 +19,7 @@ private void Start()
         Debug.Log("CharacterController is NULL");
 }
 
-private void Update()
+private void Update() //передвижение
 {
     float deltaX = Input.GetAxis("Horizontal") * _speed;
     float deltaZ = Input.GetAxis("Vertical") * _speed;
@@ -27,7 +27,7 @@ private void Update()
     movement = Vector3.ClampMagnitude(movement, _speed);
     movement = transform.TransformDirection(movement);
 
-    if (_characterController.isGrounded)
+    if (_characterController.isGrounded) //детектор соприкосновения с землей
     {
         _velocity.y = 0; 
 
@@ -44,7 +44,7 @@ private void Update()
     }
 
     
-    if (_jetpack != null && _jetpack.IsJetpackActive && !_characterController.isGrounded)
+    if (_jetpack != null && _jetpack.IsJetpackActive && !_characterController.isGrounded) //импульс джетпака
     {
         _velocity.y += _jetpack.ApplyJetpackForce();
     }

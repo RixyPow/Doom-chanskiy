@@ -970,6 +970,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jetpackForce: 10
   _jetpackDuration: 3
+  _jetpackCooldown: 10
+  IsJetpackActive: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1964,7 +1966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8574717224849751687, guid: 0c73fac6d51df1141ab3c55896943a03, type: 3}
       propertyPath: _health
-      value: 999999
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8745063618313780245, guid: 0c73fac6d51df1141ab3c55896943a03, type: 3}
       propertyPath: m_LocalPosition.x

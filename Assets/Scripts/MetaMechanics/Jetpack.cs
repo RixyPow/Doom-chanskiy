@@ -9,7 +9,7 @@ public class Jetpack : MonoBehaviour
     public float _jetpackCooldown = 10.0f; 
     private float _jetpackTime;
     private float _cooldownTime;
-    public bool IsJetpackActive = false; 
+    public bool IsJetpackActive = false; //переменная отвечающая за приобретение джетпака
 
     public float ApplyJetpackForce()
     {
