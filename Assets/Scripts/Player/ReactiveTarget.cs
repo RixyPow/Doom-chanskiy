@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+
 public class ReactiveTarget : MonoBehaviour
 {
     private EnemyAI _enemyAI;
-    private void Start(){
+    private EnemyCharacter _enemyHealth;
+
+    private void Start()
+    {
         _enemyAI = GetComponent<EnemyAI>();
+        _enemyHealth = GetComponent<EnemyCharacter>();
     }
 
-    public void ReactToHit(){ //детектор попаданий
-        if(_enemyAI != null)
-        _enemyAI.SetAlive(false);
-        StartCoroutine(DieCoroutine(1));
-    }
-    private IEnumerator DieCoroutine(float waitSecond){ //смерть, потом добавлю анимацию
-        this.transform.Rotate(45, 0 , 0);
-        Renderer renderer = this.GetComponent<Renderer>();
-        if (renderer != null)
+    public void ReactToHit(int damage) // детектор попаданий
+    {
+        if (_enemyAI != null)
         {
-            renderer.material.color = Color.black;
+            _enemyAI.SetAlive(false);
         }
-        yield return new WaitForSeconds(waitSecond);
-        Destroy(this.transform.gameObject);
+        if (_enemyHealth != null)
+        {
+            _enemyHealth.TakeDamage(damage);
+        }
     }
-
 }
+
+
 
