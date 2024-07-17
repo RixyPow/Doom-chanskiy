@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+public class MyMouseLook : MonoBehaviour
 {
     public enum RotationAxes{
         XandY,
