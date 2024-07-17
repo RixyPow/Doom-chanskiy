@@ -37,8 +37,13 @@ public class PlayerUI : MonoBehaviour
         }
 
         if (scope != null)
-        {
-            ammoText.text = scope.CurrentAmmo + " / " + scope.TotalAmmo + " Ammo"; // Обновление текста для патронов
+        {   
+            if (scope != null && scope._isReloading == true)
+            
+                ammoText.text = scope.CurrentAmmo + " / " + scope.TotalAmmo + " Reloading";
+            else {
+                ammoText.text = scope.CurrentAmmo + " / " + scope.TotalAmmo;
+            }
         }
     }
 }

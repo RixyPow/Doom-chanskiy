@@ -11,8 +11,9 @@ public class MyScope : MonoBehaviour
     [SerializeField] private int _totalAmmo = 90; // Общее количество патронов
     [SerializeField] private float _reloadTime = 2f; // Время перезарядки
     [SerializeField] private float _fireRate = 0.2f; // Скорострельность (5 выстрелов в секунду)
-    private bool _isReloading = false;
+    public bool _isReloading = false;
     private bool _isShooting = false;
+    public Texture2D crosshairImage;
 
     public int CurrentAmmo => _currentAmmo; // Свойство для получения текущего количества патронов
     public int TotalAmmo => _totalAmmo; // Свойство для получения общего количества патронов
@@ -27,10 +28,10 @@ public class MyScope : MonoBehaviour
 
     private void OnGUI() // прицел, можно сделать по-другому, я его в интернете посмотрел
     {
-        int size = 24;
+        int size = 48;
         float posX = _camera.pixelWidth / 2 - size / 4;
         float posY = _camera.pixelHeight / 2 - size / 2;
-        GUI.Label(new Rect(posX, posY, size, size), "+");
+        GUI.Label(new Rect(posX, posY, size, size), crosshairImage);
     }
 
     private void Update() // взгляд
