@@ -10,7 +10,9 @@ public class MyScope : MonoBehaviour
     [SerializeField] private int _currentAmmo; // Текущее количество патронов
     [SerializeField] private int _totalAmmo = 90; // Общее количество патронов
     [SerializeField] private float _reloadTime = 2f; // Время перезарядки
+    [SerializeField] private float _fireRate = 0.2f; // Скорострельность (5 выстрелов в секунду)
     private bool _isReloading = false;
+    private bool _isShooting = false;
 
     public int CurrentAmmo => _currentAmmo; // Свойство для получения текущего количества патронов
     public int TotalAmmo => _totalAmmo; // Свойство для получения общего количества патронов
@@ -42,37 +44,52 @@ public class MyScope : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            Shoot();
+            StartCoroutine(Reload());
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !_isShooting)
+        {
+            StartCoroutine(Shoot());
         }
     }
 
-    private void Shoot()
+    private IEnumerator Shoot()
     {
-        _currentAmmo--;
+        _isShooting = true;
 
-        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        Ray ray = _camera.ScreenPointToRay(screenCenter);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        while (Input.GetKey(KeyCode.Mouse0) && _currentAmmo > 0)
         {
-            GameObject hitObject = hit.transform.gameObject;
-            ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
+            _currentAmmo--;
 
-            if (target != null)
+            Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            Ray ray = _camera.ScreenPointToRay(screenCenter);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
             {
-                target.ReactToHit(10); // передаем урон в 10 единиц
+                GameObject hitObject = hit.transform.gameObject;
+                ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
+
+                if (target != null)
+                {
+                    target.ReactToHit(10); // передаем урон в 10 единиц
+                }
+                else
+                {
+                    StartCoroutine(SphereIndicatorCoroutine(hit.point));
+                    Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
+                }
             }
-            else
-            {
-                StartCoroutine(SphereIndicatorCoroutine(hit.point));
-                Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
-            }
+
+            Debug.Log("Ammo left: " + _currentAmmo);
+
+            yield return new WaitForSeconds(_fireRate);
         }
 
-        Debug.Log("Ammo left: " + _currentAmmo);
+        _isShooting = false;
     }
 
     private IEnumerator Reload()
