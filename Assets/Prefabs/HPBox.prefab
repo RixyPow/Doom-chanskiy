@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3341624397452706658}
   - component: {fileID: 5895543147636470898}
   - component: {fileID: 1188514256317651861}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 182199939728541991}
   - component: {fileID: 6259682634789055982}
   - component: {fileID: 2550210208235372178}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HPBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 8226208936380297695}
   - component: {fileID: 4059254079176366448}
   - component: {fileID: 4190263687698303373}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 663453353748455821}
   - component: {fileID: 2585241767707809212}
   - component: {fileID: 7481663512561032109}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 3578733440775455707}
   - component: {fileID: 3456394565403183640}
   - component: {fileID: 180271163992317307}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 7593310257876381656}
   - component: {fileID: 7767348574470646492}
   - component: {fileID: 8944527761368009512}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
