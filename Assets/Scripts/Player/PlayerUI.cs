@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text armorText;
     [SerializeField] private TMP_Text ammoText; // Новое поле для отображения патронов
+    [SerializeField] private TMP_Text fuelText; // Новое поле для отображения топлива огнемета
     private PlayerCharacter player;
     private MyScope scope; // Новое поле для доступа к скрипту MyScope
 
@@ -37,13 +38,18 @@ public class PlayerUI : MonoBehaviour
         }
 
         if (scope != null)
-        {   
-            if (scope != null && scope._isReloading == true)
-            
-                ammoText.text = scope.CurrentAmmo + " / " + scope.TotalAmmo + " Reloading";
-            else {
-                ammoText.text = scope.CurrentAmmo + " / " + scope.TotalAmmo;
+        {
+            if (scope._isReloading)
+            {
+                ammoText.text = scope._currentAmmo + " / " + scope._totalAmmo + " Reloading";
             }
+            else
+            {
+                ammoText.text = scope._currentAmmo + " / " + scope._totalAmmo;
+            }
+
+            // Обновление текста топлива огнемета
+            fuelText.text =scope.FlamethrowerFuel + " L";
         }
     }
 }

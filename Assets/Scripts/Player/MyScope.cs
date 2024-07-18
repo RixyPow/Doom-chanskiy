@@ -1,32 +1,35 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class MyScope : MonoBehaviour
 {
     private Camera _camera;
-    [SerializeField] private int _maxAmmo = 30; // Максимальное количество патронов в обойме
-    [SerializeField] private int _currentAmmo; // Текущее количество патронов
-    [SerializeField] private int _totalAmmo = 90; // Общее количество патронов
-    [SerializeField] private float _reloadTime = 2f; // Время перезарядки
-    [SerializeField] private float _fireRate = 0.2f; // Скорострельность (5 выстрелов в секунду)
+    [SerializeField] public int _maxAmmo = 30;
+    [SerializeField] public int _currentAmmo;
+    [SerializeField] public int _totalAmmo = 90;
+    [SerializeField] private float _reloadTime = 2f;
+    [SerializeField] private float _fireRate = 0.2f;
     public bool _isReloading = false;
     private bool _isShooting = false;
     public Texture2D crosshairImage;
+    public ParticleSystem flamethrowerParticleSystem;
+    public int flamethrowerDamage = 20;
+    public float damageInterval = 0.5f;
+    [SerializeField] private float _flamethrowerFuel = 100f; // Новая переменная для топлива огнемета
+    [SerializeField] private float _flamethrowerFuelConsumptionRate = 1f; // Скорость расхода топлива
 
-    public int CurrentAmmo => _currentAmmo; // Свойство для получения текущего количества патронов
-    public int TotalAmmo => _totalAmmo; // Свойство для получения общего количества патронов
+    public float FlamethrowerFuel => _flamethrowerFuel; // Публичное свойство для доступа к топливу огнемета
 
-    private void Start() // блокируем курсор
+    private void Start()
     {
         _camera = GetComponent<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        _currentAmmo = _maxAmmo; // Инициализация текущего количества патронов
+        _currentAmmo = _maxAmmo;
+        flamethrowerParticleSystem.Stop();
     }
 
-    private void OnGUI() // прицел, можно сделать по-другому, я его в интернете посмотрел
+    private void OnGUI()
     {
         int size = 48;
         float posX = _camera.pixelWidth / 2 - size / 4;
@@ -34,7 +37,7 @@ public class MyScope : MonoBehaviour
         GUI.Label(new Rect(posX, posY, size, size), crosshairImage);
     }
 
-    private void Update() // взгляд
+    private void Update()
     {
         if (_isReloading)
             return;
@@ -54,6 +57,15 @@ public class MyScope : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && !_isShooting)
         {
             StartCoroutine(Shoot());
+        }
+
+        if (Input.GetKey(KeyCode.Mouse1) && _flamethrowerFuel > 0)
+        {
+            StartFlamethrower();
+        }
+        else
+        {
+            StopFlamethrower();
         }
     }
 
@@ -76,7 +88,7 @@ public class MyScope : MonoBehaviour
 
                 if (target != null)
                 {
-                    target.ReactToHit(10); // передаем урон в 10 единиц
+                    target.ReactToHit(10);
                 }
                 else
                 {
@@ -100,6 +112,9 @@ public class MyScope : MonoBehaviour
 
         yield return new WaitForSeconds(_reloadTime);
 
+        int unusedAmmo = _currentAmmo;
+        _totalAmmo += unusedAmmo;
+
         int ammoToReload = Mathf.Min(_maxAmmo, _totalAmmo);
         _currentAmmo = ammoToReload;
         _totalAmmo -= ammoToReload;
@@ -108,7 +123,44 @@ public class MyScope : MonoBehaviour
         Debug.Log("Reloaded. Ammo left: " + _currentAmmo + ", Total ammo left: " + _totalAmmo);
     }
 
-    private IEnumerator SphereIndicatorCoroutine(Vector3 pos) // след от пули
+    private void StartFlamethrower()
+    {
+        if (!flamethrowerParticleSystem.isPlaying)
+        {
+            flamethrowerParticleSystem.Play();
+            StartCoroutine(DealFlamethrowerDamage());
+        }
+    }
+
+    private void StopFlamethrower()
+    {
+        if (flamethrowerParticleSystem.isPlaying)
+        {
+            flamethrowerParticleSystem.Stop();
+            StopCoroutine(DealFlamethrowerDamage());
+        }
+    }
+
+    private IEnumerator DealFlamethrowerDamage()
+    {
+        while (flamethrowerParticleSystem.isPlaying && _flamethrowerFuel > 0)
+        {
+            _flamethrowerFuel -= _flamethrowerFuelConsumptionRate * damageInterval;
+            Collider[] hitColliders = Physics.OverlapSphere(flamethrowerParticleSystem.transform.position, 5f);
+            foreach (var hitCollider in hitColliders)
+            {
+                ReactiveTarget target = hitCollider.GetComponent<ReactiveTarget>();
+                if (target != null)
+                {
+                    target.ReactToHit(flamethrowerDamage);
+                }
+            }
+            yield return new WaitForSeconds(damageInterval);
+        }
+        StopFlamethrower();
+    }
+
+    private IEnumerator SphereIndicatorCoroutine(Vector3 pos)
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = pos;
@@ -117,3 +169,4 @@ public class MyScope : MonoBehaviour
         Destroy(sphere);
     }
 }
+

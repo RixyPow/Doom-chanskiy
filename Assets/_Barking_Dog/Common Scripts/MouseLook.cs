@@ -38,7 +38,7 @@ public class MouseLook : MonoBehaviour
 	public KeyCode rightKey = KeyCode.D;
 	private float speedX, speedZ=0;
 
-	void Start ()
+	void Start()
 	{
 		// Set target direction to the camera's initial orientation.
 		targetDirection = transform.localRotation.eulerAngles;
@@ -48,7 +48,7 @@ public class MouseLook : MonoBehaviour
 			targetCharacterDirection = characterBody.transform.localRotation.eulerAngles;
 	}
 	
-	void Update ()
+	void Update()
 	{
 		// Ensure the cursor is always locked when set
 		//Screen.lockCursor = lockCursor;
