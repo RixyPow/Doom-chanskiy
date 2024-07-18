@@ -5,6 +5,7 @@ public class EnemyCharacter : MonoBehaviour
 {
     public int maxHealth = 100;
     private int currentHealth;
+    public GameObject healthPackPrefab; // Префаб аптечки
 
     private void Start()
     {
@@ -44,6 +45,10 @@ public class EnemyCharacter : MonoBehaviour
             renderer.material.color = Color.black;
         }
         yield return new WaitForSeconds(1f);
+
+        // Оставляем префаб аптечки после смерти врага
+        Instantiate(healthPackPrefab, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
     }
 }

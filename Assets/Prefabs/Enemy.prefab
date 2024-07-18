@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  healthPackPrefab: {fileID: 999771872276181825, guid: 9a41d4a58f78311488af0eeb5ab1b31f, type: 3}
 --- !u!1 &561593774033115478
 GameObject:
   m_ObjectHideFlags: 0

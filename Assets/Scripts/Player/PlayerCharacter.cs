@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
 {
-    [SerializeField] private int _health = 100;
-    [SerializeField] private int _armor = 50;
+    [SerializeField] public int _health = 100;
+    [SerializeField] public int _armor = 50;
 
     public int Health => _health;
     public int Armor => _armor;
@@ -37,5 +37,11 @@ public class PlayerCharacter : MonoBehaviour
         }
 
         Debug.Log("Player health: " + _health + ", Player armor: " + _armor);
+    }
+
+    public void IncreaseHealth(int amount)
+    {
+        _health = Mathf.Min(_health + amount, 100);
+        Debug.Log("Player health increased: " + _health);
     }
 }

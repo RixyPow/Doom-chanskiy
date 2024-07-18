@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7179038374070128275}
   - component: {fileID: 182199939728541991}
   - component: {fileID: 6259682634789055982}
+  - component: {fileID: 2550210208235372178}
   m_Layer: 0
   m_Name: HPBox
   m_TagString: Untagged
@@ -185,7 +186,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -193,6 +194,18 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0.000000049670536, y: -0.17659763, z: -0.00000009934107}
+--- !u!114 &2550210208235372178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999771872276181825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b6d2045223f60447b6e6b15f336d96a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3440001684257725405
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +468,6 @@ GameObject:
   - component: {fileID: 7593310257876381656}
   - component: {fileID: 7767348574470646492}
   - component: {fileID: 8944527761368009512}
-  - component: {fileID: 7592895370632533665}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -528,26 +540,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7592895370632533665
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9159001156752423694}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.50000036
-  m_Height: 2.000001
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: -0.00000017881396, z: -0.0000005662444}
