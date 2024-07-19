@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement; // Добавьте эту строку
 
 public class PlayerCharacter : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class PlayerCharacter : MonoBehaviour
 
         if (_health <= 0)
         {
-            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
         }
 
         Debug.Log("Player health: " + _health + ", Player armor: " + _armor);
@@ -45,3 +46,4 @@ public class PlayerCharacter : MonoBehaviour
         Debug.Log("Player health increased: " + _health);
     }
 }
+

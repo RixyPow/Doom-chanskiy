@@ -19,6 +19,8 @@ public class MyScope : MonoBehaviour
     [SerializeField] private float _flamethrowerFuelConsumptionRate = 1f; // Скорость расхода топлива
 
     public float FlamethrowerFuel => _flamethrowerFuel; // Публичное свойство для доступа к топливу огнемета
+    public AudioClip GunSound; // Звук выстрела
+
 
     private void Start()
     {
@@ -70,40 +72,50 @@ public class MyScope : MonoBehaviour
     }
 
     private IEnumerator Shoot()
+{
+    _isShooting = true;
+
+    // Получение компонента AudioSource для воспроизведения звука
+    AudioSource audioSource = GetComponent<AudioSource>();
+    
+    while (Input.GetKey(KeyCode.Mouse0) && _currentAmmo > 0)
     {
-        _isShooting = true;
+        _currentAmmo--;
 
-        while (Input.GetKey(KeyCode.Mouse0) && _currentAmmo > 0)
+        // Воспроизведение звука выстрела
+        if (audioSource != null && GunSound != null) // Проверьте, чтобы audioSource и GunSound были установлены
         {
-            _currentAmmo--;
-
-            Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-            Ray ray = _camera.ScreenPointToRay(screenCenter);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                GameObject hitObject = hit.transform.gameObject;
-                ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
-
-                if (target != null)
-                {
-                    target.ReactToHit(10);
-                }
-                else
-                {
-                    StartCoroutine(SphereIndicatorCoroutine(hit.point));
-                    Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
-                }
-            }
-
-            Debug.Log("Ammo left: " + _currentAmmo);
-
-            yield return new WaitForSeconds(_fireRate);
+            audioSource.PlayOneShot(GunSound);
         }
 
-        _isShooting = false;
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        Ray ray = _camera.ScreenPointToRay(screenCenter);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject hitObject = hit.transform.gameObject;
+            ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
+
+            if (target != null)
+            {
+                target.ReactToHit(10);
+            }
+            else
+            {
+                StartCoroutine(SphereIndicatorCoroutine(hit.point));
+                Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
+            }
+        }
+
+        Debug.Log("Ammo left: " + _currentAmmo);
+
+        yield return new WaitForSeconds(_fireRate);
     }
+
+    _isShooting = false;
+}
+
 
     private IEnumerator Reload()
     {

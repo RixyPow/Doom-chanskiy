@@ -1279,6 +1279,7 @@ MonoBehaviour:
   damageInterval: 0.5
   _flamethrowerFuel: 100
   _flamethrowerFuelConsumptionRate: 1
+  GunSound: {fileID: 8300000, guid: 9afd6cc7134a3428cb7606e918101f8f, type: 3}
 --- !u!1 &5419870237559681391
 GameObject:
   m_ObjectHideFlags: 0
