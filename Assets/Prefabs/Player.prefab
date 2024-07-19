@@ -922,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89dbeb1b640befb4da0d94fbe44de174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jetpackForce: 100
+  _jetpackForce: 10
   _jetpackDuration: 3
   _jetpackCooldown: 10
   IsJetpackActive: 1
@@ -6190,7 +6190,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0.93333334, g: 0.055393487, b: 0, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

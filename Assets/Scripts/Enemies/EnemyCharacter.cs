@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class EnemyCharacter : MonoBehaviour
 {
-    public int maxHealth = 100;
-    private int currentHealth;
+    public float maxHealth = 100f;
+    private float currentHealth;
     public GameObject healthPackPrefab; // Префаб аптечки
 
     private void Start()

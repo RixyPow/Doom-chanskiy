@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceAttack: 5
-  rotationSpeed: 1
+  rotationSpeed: 1.5
 --- !u!65 &2901991831416707486
 BoxCollider:
   m_ObjectHideFlags: 0
