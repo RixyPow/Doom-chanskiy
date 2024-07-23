@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement; // Добавьте эту строку
 
 public class PlayerCharacter : MonoBehaviour
-{
+{   
+    private Camera _camera;
     [SerializeField] public int _health = 100;
     [SerializeField] public int _armor = 50;
 
@@ -35,6 +36,9 @@ public class PlayerCharacter : MonoBehaviour
         if (_health <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
+            _camera = GetComponent<Camera>();
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
 
         Debug.Log("Player health: " + _health + ", Player armor: " + _armor);
